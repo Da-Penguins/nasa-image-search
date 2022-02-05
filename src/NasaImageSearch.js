@@ -8,7 +8,64 @@ export class NasaImageSearch extends LitElement {
         display: block;
         padding: 25px;
         color: var(--nasa-image-search-text-color, #000);
+        font-family: 'sans-serif';
+        font-family: 'Open Sans', sans-serif;
       }
+
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h2 { 
+        display: block;
+        font-size: 3em;
+        margin-top: 0.83em;
+        margin-bottom: 0.83em;
+        margin-left: 0;
+        margin-right: 0;
+        font-weight: bold;
+      }
+
+      .button1 {
+        border: none;
+        background-color: #ff7376;
+        color: black;
+        padding: 10px 22px;
+        text-align: center;
+        display: inline-block;
+        font-size: 14px;
+        margin: 2px 2px;
+        cursor: pointer;
+      }
+
+      .button2 {
+        border: none;
+        background-color: #ff7376;
+        color: black;
+        padding: 10px 22px;
+        text-align: center;
+        display: inline-block;
+        font-size: 14px;
+        margin: 2px 2px;
+        cursor: pointer;
+      }
+
+      input[type=text] {
+        width: 30%;
+        padding: 8px 20px;
+        margin: 8px 0;
+        display: inline-block;
+      }
+      
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+      }
+
     `;
   }
 
@@ -60,25 +117,36 @@ export class NasaImageSearch extends LitElement {
     this.searchTerm = this.shadowRoot.querySelector('#searchTerm').value;
   }
 
+  clearFields() {
+    document.getElementById("searchTerm").value = "";
+    //this.searchTerm.value = "";
+  }
+
   render() {
-    return html`
-      <h2>NASA Search</h2>
-      <input type="text" id="searchTerm"></input>
-      <button @click=${this.updateSearchTerm}>Search!</button>
+    return html `
+      <img src="../assets/favicon-192.png" style="width:128px;height:128px;">
+      <h2 style="text-align:center">NASA Search!</h2>
+      <form>
+      <input class="button1" type="reset"/>
+      <input type="text" onclick="clearText()" id="searchTerm" autofocus></input>
+      </form>
+      <div class="center">
+      <button class="button2" @click=${this.updateSearchTerm}>Search!</button>
+      </div>
       <br><br>
       ${this.images.map(
-        item => html`
+      item => html`
           <accent-card
             image-src=${item.links[0].href}
-            accent-color="green"
+            accent-color="red"
             horizontal
-            style="max-width:80%;"
+            style="max-width:300%;"
           >
             <div slot="heading">${item.data[0].title}</div>
             <div slot="content">${item.data[0].description}</div>
           </accent-card>
         `
-      )}
+    )}
     `;
-  }
+}
 }
