@@ -287,6 +287,7 @@ export class NasaImageSearch extends LitElement {
           min="1"
           value="1"
           class="pageInput"
+          aria-label="Page Number"
           @change="${this._updatePage}"
         />
       </div>
